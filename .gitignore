@@ -1,0 +1,16 @@
+# Entorno virtual (no se sube)
+venv/
+.venv/
+
+# Variables de entorno con contraseñas (no se sube)
+.env
+
+# Basura de Python (no se sube)
+__pycache__/
+*.pyc
+
+# Configuración local de VS Code (no es necesaria en Git)
+.vscode/
+
+
+# Archivos de base de datos locales (no se sube)
