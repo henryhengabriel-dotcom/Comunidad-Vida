@@ -3,17 +3,17 @@ from utils.db import db
 from models.usuarios import Usuarios
 
 
-contacto_bp = blueprints.Blueprint('contacto', __name__)
+contacto_bp = blueprints.Blueprint('iglesia', __name__)
 
 
 @contacto_bp.route('/', methods=['GET'])
 def home():
-    return  render_template('home.html')
+    return render_template('home.html')
 
 
 @contacto_bp.route('/about', methods=['GET'])
 def about():
-    return render_template('about.html')
+    return render_template('acerca.html')
 
 
 
@@ -21,7 +21,7 @@ def about():
 @contacto_bp.route('/contacto', methods=['GET'])
 def contacto():
     personas = Usuarios.query.all()
-    return render_template('contacto.html', personas=personas)
+    return render_template('contactanos.html', personas=personas)
 
 
 # Ruta para procesar el formulario de contacto
@@ -36,8 +36,8 @@ def nuevo():
         db.session.add(nuevo_usuario)
         db.session.commit()
         flash('¡Gracias por contactarnos! Nos pondremos en contacto contigo pronto.', 'success')
-        
-        return redirect(url_for('contacto.contacto'))
+
+        return redirect(url_for('iglesia.contacto'))
     else:
-        return render_template('contacto.html', error="Por favor completa todos los campos.", personas=Usuarios.query.all())
+        return render_template('contactanos.html', error='Por favor completa todos los campos.', personas=Usuarios.query.all())
 

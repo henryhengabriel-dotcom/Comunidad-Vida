@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Acerca de Nosotros — Comunidad Vida</title>
+    <meta name="description"
+        content="Conoce la historia, misión y visión de la Iglesia Comunidad Vida, desde 2017 transformando vidas." />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <a href="{{ url_for('iglesia.home') }}" class="navbar__logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Comunidad Vida"
+                class="navbar__logo-img" />
+            <div class="navbar__logo-text">
+                Comunidad Vida
+                <span>Iglesia</span>
+            </div>
+        </a>
+
+        <ul class="navbar__links">
+            <li><a href="{{ url_for('iglesia.home') }}">Inicio</a></li>
+            <li><a href="{{ url_for('iglesia.about') }}">Acerca de Nosotros</a></li>
+            <li><a href="{{ url_for('iglesia.contacto') }}">Contáctanos</a></li>
+        </ul>
+
+        <div style="display:flex; align-items:center; gap:0.8rem;">
+            <a href="https://www.instagram.com/iglesiacomunidadvida/" target="_blank" rel="noopener"
+                class="navbar__instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+                <span>Instagram</span>
+            </a>
+            <button class="navbar__toggle" id="nav-toggle" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section
+        style="padding: 9rem 2rem 4rem; text-align:center; background: linear-gradient(180deg, rgba(240,122,90,0.07) 0%, transparent 100%);">
+        <div class="container">
+            <div class="section__tag" style="margin-bottom:0.8rem;">Desde 2017</div>
+            <h1 class="hero__title" style="font-size: clamp(2rem, 5vw, 3.2rem); animation: fadeInDown 0.8s ease both;">
+                Acerca de <span class="gradient-text">Nosotros</span>
+            </h1>
+            <p
+                style="color:var(--gray); font-size:1.1rem; max-width:540px; margin:1rem auto 0; animation: fadeInUp 0.8s ease 0.2s both;">
+                Una historia de fe, amor y comunidad que sigue escribiéndose cada día.
+            </p>
+        </div>
+    </section>
+
+    <!-- HISTORIA -->
+    <section class="section">
+        <div class="container">
+            <div class="two-col animate-on-scroll">
+                <div>
+                    <div class="section__tag">Nuestra historia</div>
+                    <h2 class="section__title" style="margin-bottom:1rem;">Comenzamos en 2017</h2>
+                    <p style="color:var(--gray); line-height:1.8; margin-bottom:1rem;">
+                        Comunidad Vida nació en 2017 con un sueño simple pero poderoso: crear un espacio donde cada
+                        persona pudiera encontrar amor genuino, propósito de vida y una familia que la acompañe.
+                    </p>
+                    <p style="color:var(--gray); line-height:1.8; margin-bottom:1rem;">
+                        Lo que comenzó como un pequeño grupo de personas con un corazón apasionado por Dios y por la
+                        gente, hoy es una comunidad vibrante que sigue creciendo y transformando vidas.
+                    </p>
+                    <p style="color:var(--gray); line-height:1.8;">
+                        Cada semana nos reunimos para adorar, aprender, conectar y ser enviados a impactar nuestra
+                        ciudad con amor.
+                    </p>
+                </div>
+                <div>
+                    <img src="{{ url_for('static', filename='images/worship.png') }}" alt="Alabanza en Comunidad Vida"
+                        class="community-img" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MISIÓN Y VISIÓN -->
+    <section class="section section--alt">
+        <div class="container">
+            <div class="section__header animate-on-scroll">
+                <div class="section__tag">Lo que nos mueve</div>
+                <h2 class="section__title">Misión y Visión</h2>
+            </div>
+            <div class="cards-grid" style="grid-template-columns: 1fr 1fr;">
+                <div class="card animate-on-scroll" style="border-top: 4px solid var(--coral);">
+                    <div class="card__icon card__icon--coral" style="font-size:2rem;">🎯</div>
+                    <h3 class="card__title" style="font-size:1.3rem; margin-bottom:0.8rem;">Nuestra Misión</h3>
+                    <p class="card__text" style="line-height:1.8;">
+                        Conectar a las personas con Dios y entre sí, formando discípulos que transformen su entorno con
+                        el amor de Cristo. Somos una iglesia para todos, sin importar historia ni condición.
+                    </p>
+                </div>
+                <div class="card animate-on-scroll" style="border-top: 4px solid var(--sky);">
+                    <div class="card__icon card__icon--sky" style="font-size:2rem;">🌟</div>
+                    <h3 class="card__title" style="font-size:1.3rem; margin-bottom:0.8rem;">Nuestra Visión</h3>
+                    <p class="card__text" style="line-height:1.8;">
+                        Ser una comunidad de fe que impacte cada rincón de nuestra ciudad, levantando líderes y familias
+                        que vivan con propósito, esperanza y amor genuino.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- VALORES -->
+    <section class="section">
+        <div class="container">
+            <div class="section__header animate-on-scroll">
+                <div class="section__tag">Nuestros pilares</div>
+                <h2 class="section__title">Lo que nos define</h2>
+                <p class="section__desc">Estos valores no son solo palabras, son la forma en que vivimos cada día.</p>
+            </div>
+            <div class="cards-grid animate-on-scroll">
+                <div class="card">
+                    <div class="card__icon card__icon--coral">🙌</div>
+                    <h3 class="card__title">Adoración</h3>
+                    <p class="card__text">La adoración es el centro de todo lo que hacemos. Es nuestra respuesta al amor
+                        de Dios.</p>
+                </div>
+                <div class="card">
+                    <div class="card__icon card__icon--amber">📖</div>
+                    <h3 class="card__title">Palabra</h3>
+                    <p class="card__text">La Biblia es nuestra guía. La estudiamos, la vivimos y la compartimos con
+                        otros.</p>
+                </div>
+                <div class="card">
+                    <div class="card__icon card__icon--sky">🤝</div>
+                    <h3 class="card__title">Comunidad</h3>
+                    <p class="card__text">Nadie camina solo. Nos acompañamos, nos celebramos y nos sostenemos
+                        mutuamente.</p>
+                </div>
+                <div class="card">
+                    <div class="card__icon card__icon--mint">🕊️</div>
+                    <h3 class="card__title">Servicio</h3>
+                    <p class="card__text">Servir es nuestra vocación. Buscamos impactar nuestra ciudad con acciones
+                        concretas de amor.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOTO BAUTISMOS -->
+    <section class="section section--alt">
+        <div class="container">
+            <div class="two-col two-col--reverse animate-on-scroll">
+                <div>
+                    <div class="section__tag">Momentos que importan</div>
+                    <h2 class="section__title" style="margin-bottom:1rem;">Bautismos 2025</h2>
+                    <p style="color:var(--gray); line-height:1.8; margin-bottom:1rem;">
+                        Cada bautismo es una celebración de vida nueva. En 2025 tuvimos el privilegio de acompañar a
+                        personas que decidieron dar este paso de fe.
+                    </p>
+                    <p style="color:var(--gray); line-height:1.8; margin-bottom:1.5rem;">
+                        Estos momentos nos recuerdan por qué existimos: para ver vidas transformadas y familias
+                        restauradas.
+                    </p>
+                    <a href="{{ url_for('iglesia.contacto') }}" class="btn btn--primary">Quiero saber más</a>
+                </div>
+                <div>
+                    <img src="{{ url_for('static', filename='images/batismo.png') }}"
+                        alt="Bautismos 2025 Comunidad Vida" class="community-img" />
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="section">
+        <div class="container">
+            <div class="cta-banner animate-on-scroll">
+                <h2>¿Querés ser parte de esta historia?</h2>
+                <p>Cada domingo es una nueva oportunidad para encontrarte con nosotros. ¡Te esperamos!</p>
+                <a href="{{ url_for('iglesia.contacto') }}" class="btn btn--white">Contáctanos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer__inner">
+            <div>
+                <div class="footer__brand-name">Comunidad Vida</div>
+                <p class="footer__brand-desc">Un espacio de fe, amor y comunidad desde 2017. Todos son bienvenidos.</p>
+            </div>
+            <div class="footer__links">
+                <a href="{{ url_for('iglesia.home') }}">Inicio</a>
+                <a href="{{ url_for('iglesia.about') }}">Acerca de Nosotros</a>
+                <a href="{{ url_for('iglesia.contacto') }}">Contáctanos</a>
+                <a href="https://www.instagram.com/iglesiacomunidadvida/" target="_blank" rel="noopener">Instagram</a>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            © 2017–2026 Iglesia Comunidad Vida. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/56972618508" class="whatsapp-float" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-2.311 0-4.191 1.88-4.191 4.191 0 .584.12 1.15.352 1.666l-.37 1.353 1.391-.365c.493.268 1.054.408 1.625.408 2.31 0 4.191-1.88 4.191-4.191 0-2.311-1.88-4.191-4.198-4.191zm2.38 5.618l-.512.259c-.198.1-.401.121-.571.061-.161-.059-.47-.211-.901-.641-.43-.43-.582-.74-.641-.901-.06-.17-.039-.373.061-.571l.259-.512c.039-.08.031-.17-.01-.24l-.391-.681c-.05-.09-.16-.12-.25-.07l-.37.2c-.11.06-.18.17-.18.3 0 .19.09.43.26.7.35.53 1.02 1.25 1.7 1.7 1.05.69 2 .84 2.19.84.13 0 .24-.07.3-.18l.2-.37c.05-.09.02-.2-.07-.25l-.681-.391c-.07-.04-.16-.03-.24.01zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" />
+        </svg>
+    </a>
+</body>
+
+</html>

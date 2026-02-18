@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contáctanos — Comunidad Vida</title>
+    <meta name="description"
+        content="Conecta con la Iglesia Comunidad Vida. Estamos aquí para recibirte con los brazos abiertos." />
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <nav class="navbar" id="navbar">
+        <a href="{{ url_for('iglesia.home') }}" class="navbar__logo">
+            <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo Comunidad Vida"
+                class="navbar__logo-img" />
+            <div class="navbar__logo-text">
+                Comunidad Vida
+                <span>Iglesia</span>
+            </div>
+        </a>
+
+        <ul class="navbar__links">
+            <li><a href="{{ url_for('iglesia.home') }}">Inicio</a></li>
+            <li><a href="{{ url_for('iglesia.about') }}">Acerca de Nosotros</a></li>
+            <li><a href="{{ url_for('iglesia.contacto') }}">Contáctanos</a></li>
+        </ul>
+
+        <div style="display:flex; align-items:center; gap:0.8rem;">
+            <a href="https://www.instagram.com/iglesiacomunidadvida/" target="_blank" rel="noopener"
+                class="navbar__instagram">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                    <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
+                </svg>
+                <span>Instagram</span>
+            </a>
+            <button class="navbar__toggle" id="nav-toggle" aria-label="Menú">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- PAGE HERO -->
+    <section
+        style="padding: 9rem 2rem 4rem; text-align:center; background: linear-gradient(180deg, rgba(126,200,216,0.1) 0%, transparent 100%);">
+        <div class="container">
+            <div class="section__tag" style="margin-bottom:0.8rem;">Estamos aquí para ti</div>
+            <h1 class="hero__title" style="font-size: clamp(2rem, 5vw, 3.2rem); animation: fadeInDown 0.8s ease both;">
+                <span class="gradient-text">Contáctanos</span>
+            </h1>
+            <p
+                style="color:var(--gray); font-size:1.1rem; max-width:500px; margin:1rem auto 0; animation: fadeInUp 0.8s ease 0.2s both;">
+                Nos encantaría conocerte. Completa el formulario y nos ponemos en contacto contigo a la brevedad.
+            </p>
+        </div>
+    </section>
+
+    <!-- FORMULARIO -->
+    <section class="section" style="padding-top: 2rem;">
+        <div class="container">
+            <div class="form-wrapper animate-on-scroll">
+
+                <div style="text-align:center; margin-bottom:2rem;">
+                    <div
+                        style="width:60px; height:60px; background: var(--gradient-logo); border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto 1rem; font-size:1.6rem;">
+                        ✉️</div>
+                    <h2 style="font-size:1.5rem; font-weight:700; margin-bottom:0.3rem;">Envíanos un mensaje</h2>
+                    <p style="color:var(--gray); font-size:0.95rem;">Te responderemos lo antes posible.</p>
+                </div>
+
+                <form id="contact-form" action="{{ url_for('iglesia.nuevo') }}" method="POST" novalidate>
+                    <div class="form-grid">
+
+                        <div class="form-group form-group--full">
+                            <label for="nombre">Nombre completo <span style="color:var(--coral)">*</span></label>
+                            <input type="text" id="nombre" name="nombre" placeholder="Tu nombre completo" required
+                                autocomplete="name" />
+                        </div>
+
+                        <div class="form-group form-group--full">
+                            <label for="email">Correo electrónico <span style="color:var(--coral)">*</span></label>
+                            <input type="email" id="email" name="email" placeholder="tu@email.com" required
+                                autocomplete="email" />
+                        </div>
+
+                        <div class="form-group form-group--full">
+                            <label for="telefono">Número de teléfono <span style="color:var(--coral)">*</span></label>
+                            <input type="tel" id="telefono" name="telefono" placeholder="+54 9 11 1234-5678" required
+                                autocomplete="tel" />
+                        </div>
+
+                    </div>
+
+                    <button type="submit" class="btn btn--primary btn--submit" id="submit-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <line x1="22" y1="2" x2="11" y2="13" />
+                            <polygon points="22 2 15 22 11 13 2 9 22 2" />
+                        </svg>
+                        Enviar mensaje
+                    </button>
+                </form>
+
+                {% with messages = get_flashed_messages(with_categories=True) %}
+                    {% if messages %}
+                        {% for category, message in messages %}
+                            {% if category == 'success' %}
+                                <div class="confirm-msg visible" id="flash-success">
+                                    <div class="confirm-msg__icon">🎉</div>
+                                    <h3 class="confirm-msg__title">¡Datos recibidos!</h3>
+                                    <p class="confirm-msg__text">
+                                        Nos contactaremos contigo luego.<br />
+                                        <span style="font-size:0.85rem; opacity:0.7;">Redirigiendo al inicio en unos segundos...</span>
+                                    </p>
+                                </div>
+                                <script>
+                                    window.addEventListener('load', function () {
+                                        const successBox = document.getElementById('flash-success');
+                                        if (successBox) {
+                                            successBox.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                                        }
+                                        setTimeout(function () {
+                                            window.location.href = "{{ url_for('iglesia.home') }}";
+                                        }, 3000);
+                                    });
+                                </script>
+                            {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+
+            </div>
+        </div>
+    </section>
+
+    <!-- INFO CARDS -->
+    <section class="section section--alt">
+        <div class="container">
+            <div class="section__header animate-on-scroll">
+                <div class="section__tag">Otras formas de conectar</div>
+                <h2 class="section__title">Estamos cerca</h2>
+            </div>
+            <div class="cards-grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
+                <div class="card animate-on-scroll" style="text-align:center;">
+                    <div class="card__icon card__icon--coral" style="margin:0 auto 1rem;">📍</div>
+                    <h3 class="card__title">Encuéntranos</h3>
+                    <p class="card__text">Nos reunimos cada semana. Escribinos para saber el lugar y horario de nuestros
+                        encuentros.</p>
+                </div>
+                <div class="card animate-on-scroll" style="text-align:center;">
+                    <div class="card__icon card__icon--amber" style="margin:0 auto 1rem;">📸</div>
+                    <h3 class="card__title">Instagram</h3>
+                    <p class="card__text">Seguinos en Instagram para ver todo lo que vivimos juntos como comunidad.</p>
+                    <a href="https://www.instagram.com/iglesiacomunidadvida/" target="_blank" rel="noopener"
+                        class="btn btn--outline" style="margin-top:1rem; font-size:0.9rem; padding:0.5rem 1.2rem;">
+                        @iglesiacomunidadvida
+                    </a>
+                </div>
+                <div class="card animate-on-scroll" style="text-align:center;">
+                    <div class="card__icon card__icon--sky" style="margin:0 auto 1rem;">🤗</div>
+                    <h3 class="card__title">Visítanos</h3>
+                    <p class="card__text">La mejor forma de conocernos es viniendo. No necesitás saber nada ni traer
+                        nada. Solo venite.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="footer__inner">
+            <div>
+                <div class="footer__brand-name">Comunidad Vida</div>
+                <p class="footer__brand-desc">Un espacio de fe, amor y comunidad desde 2017. Todos son bienvenidos.</p>
+            </div>
+            <div class="footer__links">
+                <a href="{{ url_for('iglesia.home') }}">Inicio</a>
+                <a href="{{ url_for('iglesia.about') }}">Acerca de Nosotros</a>
+                <a href="{{ url_for('iglesia.contacto') }}">Contáctanos</a>
+                <a href="https://www.instagram.com/iglesiacomunidadvida/" target="_blank" rel="noopener">Instagram</a>
+            </div>
+        </div>
+        <div class="footer__bottom">
+            © 2017–2026 Iglesia Comunidad Vida. Todos los derechos reservados.
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+
+    <!-- WhatsApp Float Button -->
+    <a href="https://wa.me/56972618508" class="whatsapp-float" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12.031 6.172c-2.311 0-4.191 1.88-4.191 4.191 0 .584.12 1.15.352 1.666l-.37 1.353 1.391-.365c.493.268 1.054.408 1.625.408 2.31 0 4.191-1.88 4.191-4.191 0-2.311-1.88-4.191-4.198-4.191zm2.38 5.618l-.512.259c-.198.1-.401.121-.571.061-.161-.059-.47-.211-.901-.641-.43-.43-.582-.74-.641-.901-.06-.17-.039-.373.061-.571l.259-.512c.039-.08.031-.17-.01-.24l-.391-.681c-.05-.09-.16-.12-.25-.07l-.37.2c-.11.06-.18.17-.18.3 0 .19.09.43.26.7.35.53 1.02 1.25 1.7 1.7 1.05.69 2 .84 2.19.84.13 0 .24-.07.3-.18l.2-.37c.05-.09.02-.2-.07-.25l-.681-.391c-.07-.04-.16-.03-.24.01zM12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 18c-4.411 0-8-3.589-8-8s3.589-8 8-8 8 3.589 8 8-3.589 8-8 8z" />
+        </svg>
+    </a>
+</body>
+
+</html>
