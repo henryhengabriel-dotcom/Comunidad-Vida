@@ -1,6 +1,6 @@
 # Comunidad Vida
 
-Una aplicación web para la gestión de contactos de la comunidad religiosa "Comunidad Vida". Desarrollada con Flask y MySQL.
+Aplicación web con Flask + MySQL para registrar contactos de la comunidad, ahora con integración MCP para ejecutar un CRUD desde Claude.
 
 ## 👤 Autor
 
@@ -8,183 +8,184 @@ Una aplicación web para la gestión de contactos de la comunidad religiosa "Com
 
 ## 📋 Descripción
 
-Comunidad Vida es una aplicación web diseñada para gestionar la información de contacto de los miembros y personas interesadas en la comunidad. La aplicación permite:
+El proyecto tiene dos partes principales:
 
-- Visualizar información sobre la comunidad
-- Registrar nuevos contactos con nombre, email y teléfono
-- Gestionar la base de datos de usuarios
-- Interfaz responsive y moderna con Bootstrap
+1. **Aplicación web Flask** para registrar y consultar contactos.
+2. **Servidor MCP** para exponer herramientas CRUD de la tabla `usuarios` y usarlas desde Claude.
 
-## 🛠️ Tecnologías Utilizadas
+## 🛠️ Tecnologías utilizadas
 
-- **Backend**: Flask 3.1.2
-- **Base de Datos**: MySQL con SQLAlchemy
-- **Frontend**: HTML, CSS, Bootstrap, Bootstrap Icons
-- **Librerías principales**:
-  - Flask-SQLAlchemy 3.1.1
-  - Flask-Login 0.6.3
-  - PyMySQL
-  - python-dotenv
+- **Backend web**: Flask 3.1.2
+- **Base de datos**: MySQL + SQLAlchemy 2.0
+- **MCP server**: FastMCP 3.0
+- **Frontend**: HTML/CSS/JS
 
-## 📁 Estructura del Proyecto
+## 📁 Estructura del proyecto
 
 ```
 ComunidadVida/
 │
-├── app.py                 # Archivo principal de la aplicación
-├── requirements.txt       # Dependencias del proyecto
-├── .env                   # Variables de entorno (no incluido en el repo)
+├── app.py                  # Configuración Flask y SQLAlchemy
+├── mcp_db.py               # Sesión de base de datos para herramientas MCP
+├── servidor_mcp.py         # Servidor MCP con CRUD de usuarios
+├── requirements.txt
+├── README.md
 │
 ├── models/
-│   └── usuarios.py        # Modelo de datos para usuarios
+│   └── usuarios.py         # Modelo Usuarios (tabla usuarios)
 │
 ├── routes/
 │   ├── __init__.py
-│   └── contacto.py        # Rutas para páginas y formulario de contacto
+│   └── contacto.py         # Rutas web: /, /about, /contacto, /nuevo
 │
 ├── templates/
-│   ├── main.html          # Template base
-│   ├── home.html          # Página de inicio
-│   ├── about.html         # Página "Sobre nosotros"
-│   └── contacto.html      # Página de contacto con formulario
+│   ├── home.html
+│   ├── acerca.html
+│   └── contactanos.html
 │
 ├── static/
-│   └── main.css           # Estilos personalizados
+│   ├── css/style.css
+│   ├── js/main.js
+│   └── images/
 │
 └── utils/
-    └── db.py              # Configuración de la base de datos
+    └── db.py
 ```
 
 ## 🚀 Instalación
 
-### Requisitos Previos
+### Requisitos
 
-- Python 3.8 o superior
+- Python 3.8+
 - MySQL Server
-- pip (gestor de paquetes de Python)
+- pip
 
-### Pasos de Instalación
+### Pasos
 
-1. **Clonar o descargar el repositorio**
+1. **Entrar al proyecto**
 
 ```bash
 cd ComunidadVida
 ```
 
-2. **Crear un entorno virtual**
+2. **Crear entorno virtual**
 
 ```bash
 python -m venv venv
 ```
 
-3. **Activar el entorno virtual**
+3. **Activar entorno virtual**
 
 - Windows:
+
 ```bash
 venv\Scripts\activate
 ```
 
 - Linux/Mac:
+
 ```bash
 source venv/bin/activate
 ```
 
-4. **Instalar las dependencias**
+4. **Instalar dependencias**
 
 ```bash
 pip install -r requirements.txt
 ```
 
-5. **Configurar las variables de entorno**
-
-Crear un archivo `.env` en la raíz del proyecto con la siguiente información:
+5. **Configurar `.env`**
 
 ```env
 DB_USER=tu_usuario_mysql
-DB_PASSWORD=tu_contraseña_mysql
+DB_PASSWORD=tu_password_mysql
 DB_HOST=localhost
 DB_PORT=3306
 DB_NAME=comunidad_vida
-SECRET_KEY=tu_clave_secreta_aqui
+SECRET_KEY=tu_clave_secreta
 FLASK_ENV=development
 ```
 
-6. **Crear la base de datos en MySQL**
+6. **Crear base de datos**
 
 ```sql
 CREATE DATABASE comunidad_vida;
 ```
 
-7. **Ejecutar la aplicación**
+## ▶️ Ejecutar la aplicación web
 
 ```bash
 python app.py
 ```
 
-La aplicación estará disponible en `http://127.0.0.1:5000/`
+Disponible en: `http://127.0.0.1:5000/`
 
-## 📊 Base de Datos
+## 🤖 Integración MCP (Claude)
 
-### Tabla: usuarios
+### ¿Qué hace `mcp_db.py`?
 
-| Campo           | Tipo         | Descripción                    |
-|----------------|--------------|--------------------------------|
-| id             | INTEGER      | Clave primaria (auto-increment)|
-| nombre         | VARCHAR(50)  | Nombre del usuario             |
-| email          | VARCHAR(100) | Email (único)                  |
-| numero_telefono| VARCHAR(15)  | Número de teléfono             |
+- Reutiliza la configuración de `app.py` para conectarse a la misma base de datos.
+- Crea `SessionLocal` de SQLAlchemy.
+- Expone `get_db_session()` como generador para abrir/cerrar sesiones.
 
-## 🌐 Rutas de la Aplicación
+### ¿Qué hace `servidor_mcp.py`?
 
-| Ruta       | Método | Descripción                              |
-|------------|--------|------------------------------------------|
-| `/`        | GET    | Página de inicio                         |
-| `/about`   | GET    | Información sobre la comunidad           |
-| `/contacto`| GET    | Formulario de contacto y lista de usuarios|
-| `/nuevo`   | POST   | Procesar nuevo registro de contacto      |
+Define un servidor `FastMCP("iglesiasDB")` con herramientas CRUD:
 
-## 🎨 Características
+- `mostrar_tabla()` → Lista todos los usuarios.
+- `crear_usuario(nombre, email, numero)` → Inserta un usuario.
+- `actualizar_usuario(id, nombre, email, numero)` → Actualiza un usuario.
+- `eliminar_usuario(id)` → Elimina un usuario.
 
-- **Diseño Responsive**: Se adapta a dispositivos móviles, tablets y escritorio
-- **Formulario de Contacto**: Validación de campos y mensajes flash
-- **Gestión de Usuarios**: Almacenamiento seguro en base de datos MySQL
-- **Interfaz Moderna**: Bootstrap 5 con iconos y diseño limpio
-- **Arquitectura MVC**: Separación clara de modelos, vistas y controladores
+### Ejecutar servidor MCP local
 
-## 🔒 Seguridad
+Con el entorno virtual activo:
 
-- Variables de entorno para credenciales sensibles
-- Secret key para sesiones Flask
-- Validación de formularios
-- SQLAlchemy ORM para prevenir inyección SQL
+```bash
+python servidor_mcp.py
+```
 
-## 📝 Uso
+## ⚙️ Configurar Claude Desktop
 
-1. **Página de Inicio**: Presenta información general sobre Comunidad Vida
-2. **Sobre Nosotros**: Describe la misión y valores de la comunidad
-3. **Contacto**: 
-   - Formulario para nuevos contactos
-   - Lista de personas registradas
-   - Mensajes de confirmación al registrar
+Ejemplo de configuración en `claude_desktop_config.json` (Windows):
 
-## 🤝 Contribuir
+```json
+{
+  "mcpServers": {
+    "iglesiasDB": {
+      "command": "C:\\Users\\ailin\\OneDrive\\Escritorio\\ComunidadVida\\venv\\Scripts\\python.exe",
+      "args": [
+        "C:\\Users\\ailin\\OneDrive\\Escritorio\\ComunidadVida\\servidor_mcp.py"
+      ]
+    }
+  }
+}
+```
 
-Si deseas contribuir al proyecto:
+Luego reinicia Claude Desktop y podrás invocar las herramientas del CRUD desde el chat.
 
-1. Fork el repositorio
-2. Crea una rama para tu feature (`git checkout -b feature/NuevaCaracteristica`)
-3. Commit tus cambios (`git commit -m 'Agregar nueva característica'`)
-4. Push a la rama (`git push origin feature/NuevaCaracteristica`)
-5. Abre un Pull Request
+## 📊 Base de datos
 
-## 📧 Contacto
+Tabla principal: `usuarios`
 
-Para más información sobre el proyecto, contacta a **Henry Perdomo**.
+Campos definidos por el modelo Flask (`models/usuarios.py`):
+
+- `id` (Integer, PK)
+- `nombre` (String 50)
+- `email` (String 100, único)
+- `numero_telefono` (String 15)
+
+## 🌐 Rutas web
+
+- `GET /` → Inicio
+- `GET /about` → Página acerca
+- `GET /contacto` → Formulario + listado
+- `POST /nuevo` → Crear contacto desde formulario
+
+## ⚠️ Nota importante
+
+El CRUD MCP usa SQL manual con columna `numero` en `servidor_mcp.py`, mientras que el modelo ORM define `numero_telefono`. Verifica que tu tabla MySQL tenga el nombre de columna esperado por tus consultas MCP para evitar errores.
 
 ## 📄 Licencia
 
-Este proyecto es de uso privado para Comunidad Vida.
-
----
-
-**Comunidad Vida** - Un lugar para crecer en fe, esperanza y amor. 🙏
+Proyecto de uso privado para Comunidad Vida.
