@@ -1,6 +1,6 @@
 from fastmcp import FastMCP
 
-from mcp_db import get_db_session
+from db_mcp import get_db_session
 from sqlalchemy import text
 
 
