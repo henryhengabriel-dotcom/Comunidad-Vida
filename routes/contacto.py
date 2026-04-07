@@ -13,6 +13,9 @@ def home():
 
 @contacto_bp.route('/about', methods=['GET'])
 def about():
+
+
+    
     return render_template('acerca.html')
 
 
