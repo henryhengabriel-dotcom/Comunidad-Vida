@@ -1,6 +1,8 @@
 
 venv/
-.venv/
+
+mis_datos_sql/
+
 
 
 .env

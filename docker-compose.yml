@@ -18,7 +18,7 @@ services:
     env_file:
     - .env
     volumes:
-      - /mi_datos_sql:/var/lib/mysql
+      - ./mis_datos_sql:/var/lib/mysql
    
 
 
